@@ -978,6 +978,117 @@ body {
 }
 
 /* ========================================
+   Photo Popup (Personal Touch)
+   ======================================== */
+
+.photo-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 11, 0.95);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 150;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.photo-popup.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.photo-popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-xl);
+    max-width: 340px;
+}
+
+.photo-frame {
+    position: relative;
+    margin-bottom: var(--spacing-xl);
+}
+
+.photo-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--color-accent);
+    box-shadow: 0 0 40px rgba(232, 196, 160, 0.3);
+    animation: photo-appear 0.6s var(--transition-spring);
+}
+
+@keyframes photo-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) rotate(-5deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.photo-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(232, 196, 160, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+.photo-message {
+    margin-bottom: var(--spacing-xl);
+    animation: fade-in 0.6s 0.2s ease both;
+}
+
+.photo-text {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-primary);
+}
+
+.photo-subtext {
+    font-size: 1rem;
+    color: var(--color-accent);
+    font-style: italic;
+}
+
+.btn-photo-continue {
+    background: var(--gradient-primary);
+    color: var(--color-bg);
+    padding: var(--spacing-md) var(--spacing-2xl);
+    border: none;
+    border-radius: var(--radius-full);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    animation: fade-in 0.6s 0.4s ease both;
+}
+
+.btn-photo-continue:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(232, 196, 160, 0.3);
+}
+
+/* ========================================
    Utilities
    ======================================== */
 

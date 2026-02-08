@@ -385,6 +385,8 @@ const quizContent = document.getElementById('quiz-content');
 const progressFill = document.getElementById('progress-fill');
 const progressText = document.getElementById('progress-text');
 const blockTransition = document.getElementById('block-transition');
+const photoPopup = document.getElementById('photo-popup');
+const photoContinueBtn = document.getElementById('photo-continue-btn');
 
 // ========================================
 // Screen Management
@@ -703,6 +705,21 @@ function showBlockTransition(block) {
     });
 }
 
+// Show personal photo popup before Content block
+function showPhotoPopup() {
+    return new Promise(resolve => {
+        photoPopup.classList.add('active');
+
+        const handleContinue = () => {
+            photoPopup.classList.remove('active');
+            photoContinueBtn.removeEventListener('click', handleContinue);
+            setTimeout(resolve, 400);
+        };
+
+        photoContinueBtn.addEventListener('click', handleContinue);
+    });
+}
+
 async function goToQuestion(index) {
     if (index < 0 || index >= questions.length) return;
 
@@ -711,6 +728,10 @@ async function goToQuestion(index) {
 
     // Show block transition if entering a new block
     if (currentBlock !== newBlock.id && index > 0) {
+        // Show personal photo popup before Content block
+        if (newBlock.id === 'content') {
+            await showPhotoPopup();
+        }
         await showBlockTransition(newBlock);
     }
 
